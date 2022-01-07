@@ -52,4 +52,4 @@ npm install --global http-server
 http-server [path] [options]
 ```
 
-![task2.png](task2.png)
+![task.png](task.png)
