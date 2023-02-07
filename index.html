@@ -3,157 +3,328 @@
 
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <link rel="shortcut icon" href="https://alpinejs.dev/favicon.png">
-
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=edge"
+  >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+  >
+  <link
+    rel="shortcut icon"
+    href="https://alpinejs.dev/favicon.png"
+  >
   <title>Alpine JS</title>
-
   <!-- Bulma -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+  >
   <!-- Font-awesome -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+  >
   <!-- Alpine -->
-  <script defer src="https://unpkg.com/alpinejs"></script>
+  <script
+    defer
+    src="https://unpkg.com/alpinejs"
+  ></script>
   <!-- https://github.com/devboyarif/alpinejs-crud/blob/master/index.html -->
   <!-- https://github.com/danharrin/alpine-tailwind-components/blob/main/select/index.html -->
-
   <style>
     .is-done {
-      text-decoration: line-through;
-    }
+    text-decoration: line-through;
+  }
   </style>
-
 </head>
 
-<body class="mt-3">
-  <div
-    class="container"
-    x-data="getTodos()"
-    x-init="$watch('task', value => {if (value.length > 0) required=false})"
-  >
-    <div>
-      <form
-        @submit.prevent="saveData"
-        class="form-inline"
-      >
-        <div class="field is-grouped">
-          <div class="field">
+<body>
+  <div class="container">
+    <img src="https://camo.githubusercontent.com/fdb582cadc3af8a37688d04f78a8c5876cb9142aac7c0bfc43ad1a018963a76e/68747470733a2f2f616c70696e656a732e6465762f616c70696e655f6c6f6e672e737667">
+    <div class="notification is-primary">
+      <p>Exemplos do <a
+          href="https://alpinejs.dev/"
+          target="_blank"
+        >Alpine.js</a></p>
+      <p>O Alpine.js basicamente trabalha com atributos, e ele tem 15 atributos.</p>
+    </div>
+    <div class="columns">
+      <!-- START column -->
+      <div class="column">
+        <!-- 3 cards -->
+        <!-- ASSUNTO x-data e x-text -->
+        <!-- START card -->
+        <!-- Precisamos colocar tudo dentro de uma div. -->
+        <div
+          class="card"
+          x-data="{
+            title: 'Tarefas',
+            items: ['Um', 'Dois', 'Três']
+          }"
+        >
+          <div class="card-header">
+            <p
+              class="card-header-title"
+              x-text="title"
+            ></p>
+          </div>
+          <div class="card-content">
+            <ul>
+              <template x-for="item in items">
+                <li x-text="item"></li>
+              </template>
+            </ul>
+          </div>
+        </div>
+        <!-- END card -->
+        <br>
+        <!-- ASSUNTO x-if e x-show -->
+        <!-- START card -->
+        <div
+          class="card"
+          x-data="{
+            isActive: true,
+            isAdmin: false
+          }"
+        >
+          <div class="card-header">
+            <p class="card-header-title">x-if e x-show</p>
+          </div>
+          <div class="card-content">
+            <!-- Conteúdo do card -->
+            <template x-if="isAdmin">
+              <button class="button is-warning">Admin</button>
+            </template>
+            <button
+              class="button is-primary"
+              x-show="isActive"
+            >Ativo</button>
+            <button
+              class="button is-danger"
+              x-show="isAdmin"
+            >Admin</button>
+          </div>
+        </div>
+        <!-- END card -->
+        <br>
+        <!-- ASSUNTO x-bind -->
+        <!-- START card -->
+        <div
+          class="card"
+          x-data="{
+            yes: true,
+            items: ['Um', 'Dois', 'Três']
+          }"
+        >
+          <div class="card-header">
+            <p class="card-header-title">x-bind</p>
+          </div>
+          <div class="card-content">
+            <!-- Conteúdo do card -->
+            <ul>
+              <template x-for="(item, index) in items">
+                <li
+                  x-text="item"
+                  :class="{ 'has-text-primary': index % 2 === 0, 'has-text-danger': index % 2 }"
+                ></li>
+              </template>
+            </ul>
+            <button
+              class="button"
+              :class="{ 'is-primary': yes, 'is-danger': !yes }"
+              x-text="yes"
+              @click="yes =! yes"
+            >Toggle</button>
+            <span x-show="yes">SIM</span>
+            <span x-show="!yes">NÃO</span>
+          </div>
+        </div>
+        <!-- END card -->
+      </div>
+      <!-- END column -->
+      <!-- START column -->
+      <div class="column">
+        <!-- 2 cards -->
+        <!-- ASSUNTO x-model e x-ref -->
+        <!-- START card -->
+        <div
+          class="card"
+          x-data="{
+            form: {
+              firstName: '',
+              lastName: ''
+            },
+            email: '',
+            selectedFramework: ''
+          }"
+        >
+          <div class="card-header">
+            <p class="card-header-title">x-model e x-ref</p>
+          </div>
+          <div class="card-content">
+            <!-- Conteúdo do card -->
+            <input
+              type="text"
+              class="input"
+              placeholder="Nome"
+              x-model="form.firstName"
+            >
+            <p x-text="form.firstName"></p>
+            <!-- -->
+            <input
+              type="email"
+              class="input"
+              placeholder="E-mail"
+              x-ref="newEmail"
+              @input="email = $refs.newEmail.value"
+            >
+            <p x-text="email"></p>
+            <!-- -->
+            <div class="select">
+              <select
+                x-ref="framework"
+                @input="selectedFramework = $refs.framework.value"
+              >
+                <option value="">-----</option>
+                <option value="1">Alpine.js</option>
+                <option value="2">VueJS</option>
+                <option value="3">ReactJS</option>
+                <option value="4">Remix</option>
+                <option value="5">Astro</option>
+              </select>
+            </div>
+            <p x-text="selectedFramework"></p>
+          </div>
+        </div>
+        <!-- END card -->
+        <br>
+        <!-- ASSUNTO Computed -->
+        <!-- START card -->
+        <div
+          class="card"
+          x-data="getName"
+        >
+          <div class="card-header">
+            <p class="card-header-title">Computed</p>
+          </div>
+          <div class="card-content">
+            <!-- Conteúdo do card -->
             <div class="control">
               <input
                 class="input"
                 type="text"
-                maxlength="20"
                 class="input"
-                :class="required ? 'is-danger' : ''"
-                placeholder="Task"
-                x-model="task"
-                autofocus
+                placeholder="Nome"
+                x-model="name.firstName"
               >
             </div>
-            <p
-              class="help is-danger"
-              x-show="required"
-            >
-              Please type the task.
-            </p>
-            <p
-              class="help has-text-right"
-              x-show="task.length"
-              x-text="task.length"
-            ></p>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                class="input"
+                placeholder="Sobrenome"
+                x-model="name.lastName"
+              >
+            </div>
+            <p x-text="fullName"></p>
           </div>
-          <p class="control">
-            <button
-              class="button is-info ml-3"
-              type="submit"
-            >
-              OK
-            </button>
-          </p>
         </div>
-      </form>
-      <table>
-        <tbody>
-          <template
-            x-for="todo in todos"
-            :key="todo.id"
-          >
-            <tr>
-              <td
-                :class="todo.done ? 'is-done' : ''"
-                x-text="todo.task"
-                @click="toggleDone(todo.id, todo.done ? false : true)"
-              ></td>
-              <td>
-                <i
-                  class="fa fa-times has-text-danger ml-3"
-                  @click="deleteTask(todo.id)"
-                ></i>
-              </td>
-            </tr>
-          </template>
-        </tbody>
-      </table>
+        <!-- END card -->
+      </div>
+      <!-- END column -->
+      <!-- START column -->
+      <div class="column">
+        <!-- 1 card -->
+        <!-- ASSUNTO Todo list -->
+        <!-- START card -->
+        <div
+          class="card"
+          x-data="getTodos"
+        >
+          <div class="card-header">
+            <p class="card-header-title">Todo list</p>
+          </div>
+          <div class="card-content">
+            <!-- Conteúdo do card -->
+            <div>
+              <form
+                @submit.prevent="saveData"
+                class="form-inline"
+              >
+                <div class="field is-grouped">
+                  <div class="field">
+                    <div class="control">
+                      <input
+                        class="input"
+                        type="text"
+                        maxlength="20"
+                        class="input"
+                        :class="required ? 'is-danger' : ''"
+                        placeholder="Task"
+                        x-model="task"
+                        autofocus
+                      >
+                    </div>
+                    <p x-text="task"></p>
+                    <p
+                      class="help is-danger"
+                      x-show="required"
+                    >
+                      Please type the task.
+                    </p>
+                    <p
+                      class="help has-text-right"
+                      x-show="task.length"
+                      x-text="task.length"
+                    ></p>
+                  </div>
+                  <p class="control">
+                    <button
+                      class="button is-info ml-3"
+                      type="submit"
+                    >
+                      OK
+                    </button>
+                  </p>
+                </div>
+              </form>
+              <span x-show="isLoading || task.length > 0">
+                <i class="fa fa-spinner fa-pulse has-text-danger"></i>
+              </span>
+              <table>
+                <tbody>
+                  <template
+                    x-for="todo in todos"
+                    :key="todo.id"
+                  >
+                    <tr>
+                      <td
+                        :class="todo.done ? 'is-done' : ''"
+                        x-text="todo.task"
+                        @click="toggleDone(todo.id, todo.done ? false : true)"
+                      ></td>
+                      <td>
+                        <i
+                          class="fa fa-times has-text-danger ml-3"
+                          @click="deleteTask(todo.id)"
+                        ></i>
+                      </td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- END card -->
+      </div>
+      <!-- END column -->
     </div>
   </div>
-
-  <script>
-    const getTodos = () => ({
-      url: 'http://localhost:3000/todos',
-      todos: [],
-      task: '',
-      required: false,
-      init() {
-        fetch(this.url)
-          .then(response => response.json())
-          .then(data => this.todos = data)
-      },
-      saveData() {
-        if (!this.task) {
-          this.required = true
-          return
-        }
-        fetch(this.url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              task: this.task
-            })
-          })
-          .then(response => response.json())
-          .then(() => {
-            this.init()
-            this.task = ''
-          })
-      },
-      toggleDone(id, value) {
-        fetch(`http://localhost:3000/todos/${id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              done: value
-            })
-          })
-          .then(response => response.json())
-          .then(() => {
-            this.init()
-          })
-      },
-      deleteTask(id) {
-        fetch(`http://localhost:3000/todos/${id}`, {
-            method: 'DELETE',
-          })
-          .then(response => response.json())
-          .then(() => {
-            this.init()
-          })
-      },
-    })
-  </script>
-
+  <script src="/assets/js/main.js"></script>
 </body>
 
 </html>
