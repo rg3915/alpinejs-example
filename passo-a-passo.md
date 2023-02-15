@@ -359,17 +359,22 @@ Um exemplo mais interessante é com o `<select>`.
 
 ## Todo list
 
-x-data
-computed - fullName
-init()
-getData()
-isLoading
-toggleDone()
-deleteTask()
+- x-data
+- computed - fullName
+- init()
+- getData()
+- isLoading
+- toggleDone()
+- deleteTask()
 
-$watch
-  x-init="$watch('task', value => {if (value.length > 0) required=false})"
+- $watch
 
-this.$watch()
+```
+x-init="$watch('task', value => {if (value.length > 0) required=false})"
+```
 
-saveData()
+- this.$watch()
+
+- saveData()
+
+- Filtrando dropdowns dependentes

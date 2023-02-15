@@ -42,7 +42,9 @@
 
 <body>
   <div class="container">
+    <!-- img -->
     <img src="https://camo.githubusercontent.com/fdb582cadc3af8a37688d04f78a8c5876cb9142aac7c0bfc43ad1a018963a76e/68747470733a2f2f616c70696e656a732e6465762f616c70696e655f6c6f6e672e737667">
+    <!-- notification -->
     <div class="notification is-primary">
       <p>Exemplos do <a
           href="https://alpinejs.dev/"
@@ -237,7 +239,7 @@
       <!-- END column -->
       <!-- START column -->
       <div class="column">
-        <!-- 1 card -->
+        <!-- 2 cards -->
         <!-- ASSUNTO Todo list -->
         <!-- START card -->
         <div
@@ -316,6 +318,67 @@
                   </template>
                 </tbody>
               </table>
+            </div>
+          </div>
+        </div>
+        <!-- END card -->
+        <br>
+        <!-- ASSUNTO Filtrando dropdowns dependentes -->
+        <!-- START card -->
+        <div
+          class="card"
+          x-data="getStates"
+        >
+          <div class="card-header">
+            <p class="card-header-title">Filtrando dropdowns dependentes</p>
+          </div>
+          <div class="card-content">
+            <span x-show="isLoading">
+              <i class="fa fa-spinner fa-pulse has-text-danger"></i>
+            </span>
+            <div class="field is-grouped">
+              <!-- START field -->
+              <div class="field">
+                <label class="label">Região</label>
+                <div class="control">
+                  <div class="select">
+                    <select x-model="selectedRegion">
+                      <option value="">Selecione uma região</option>
+                      <template
+                        x-for="region in regions"
+                        :key="region.id"
+                      >
+                        <option
+                          :value="region.id"
+                          x-text="region.name"
+                        ></option>
+                      </template>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <!-- END field -->
+              <!-- START field -->
+              <div class="field ml-2">
+                <label class="label">Estado</label>
+                <div class="control">
+                  <div class="select">
+                    <select>
+                      <option value="">Selecione um Estado</option>
+                      <template
+                        x-for="state in filteredStates"
+                        :key="state.id"
+                      >
+                        <option
+                          :value="state.id"
+                          x-text="state.name"
+                        ></option>
+                      </template>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <!-- END field -->
             </div>
           </div>
         </div>
