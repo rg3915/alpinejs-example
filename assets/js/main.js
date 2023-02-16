@@ -105,7 +105,7 @@ const getStates = () => ({
       .then(data => {
         // Mapeia a resposta da API para um array de objetos com as propriedades 'id', 'name' e 'region'
         const states = data.map(state => ({ id: state.id, name: state.nome, region: state.regiao }))
-                           .sort((a, b) => a.name.localeCompare(b.name))
+          .sort((a, b) => a.name.localeCompare(b.name))
 
         // Obtém um array de regiões únicas a partir do array de estados
         const regions = [...new Set(states.map(state => state.region.id))].map(regionId => {
@@ -122,7 +122,91 @@ const getStates = () => ({
         this.filteredStates = states
         this.isLoading = false
       })
-
   },
+})
+
+const getSales = () => ({
+  urlSale: 'http://localhost:3000/sales',
+  urlProduct: 'http://localhost:3000/products',
+  isLoading: false,
+  sales: [],
+  products: [],
+
+  init() {
+    this.getData()
+  },
+
+  getData() {
+    this.isLoading = true
+
+    fetch(this.urlSale)
+      .then(response => response.json())
+      .then(data => {
+        this.sales = data
+        this.isLoading = false
+      })
+
+    fetch(this.urlProduct)
+      .then(response => response.json())
+      .then(data => {
+        this.products = data
+        this.isLoading = false
+      })
+  },
+
+  addRow() {
+    this.sales.push({
+      "product": "",
+      "quantity": null,
+      "price": null
+    })
+  },
+
+  findProduct(product, index) {
+    const item = this.products.find((item) => {
+      return item.id == product
+    })
+    if (item) {
+      this.sales[index].price = item.price
+    }
+  },
+
+  async saveData() {
+    for (const item of this.sales) {
+      if (!item.product) {
+        this.required = true
+        return
+      }
+
+      // Só para manter o que está na tabela.
+      await this.deleteSale(item.id)
+
+      const response = await fetch('http://localhost:3000/sales', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          product: parseInt(item.product),
+          quantity: parseInt(item.quantity),
+          price: parseFloat(item.price)
+        })
+      })
+      const data = await response.json()
+      this.getData()
+    }
+  },
+
+  async deleteSale(id) {
+    const response = await fetch(`http://localhost:3000/sales/${id}`, {
+      method: 'DELETE',
+    })
+    const data = await response.json()
+    this.getData()
+  },
+
+  total() {
+    return this.sales.reduce((acc, sale) => {
+      return acc + (sale.quantity * sale.price)
+    }, 0).toFixed(2)
+  }
 
 })

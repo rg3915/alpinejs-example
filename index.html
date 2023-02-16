@@ -41,7 +41,10 @@
 </head>
 
 <body>
-  <div class="container">
+  <div
+    class="container"
+    x-data="{ tabs: 1 }"
+  >
     <!-- img -->
     <img src="https://camo.githubusercontent.com/fdb582cadc3af8a37688d04f78a8c5876cb9142aac7c0bfc43ad1a018963a76e/68747470733a2f2f616c70696e656a732e6465762f616c70696e655f6c6f6e672e737667">
     <!-- notification -->
@@ -52,108 +55,124 @@
         >Alpine.js</a></p>
       <p>O Alpine.js basicamente trabalha com atributos, e ele tem 15 atributos.</p>
     </div>
-    <div class="columns">
-      <!-- START column -->
-      <div class="column">
-        <!-- 3 cards -->
-        <!-- ASSUNTO x-data e x-text -->
-        <!-- START card -->
-        <!-- Precisamos colocar tudo dentro de uma div. -->
-        <div
-          class="card"
-          x-data="{
+    <!-- tabs -->
+    <div class="tabs">
+      <ul>
+        <li
+          :class="{ 'is-active': tabs==1 }"
+          @click="tabs=1"
+        ><a>Alpine.js</a></li>
+        <li
+          :class="{ 'is-active': tabs==2 }"
+          @click="tabs=2"
+        ><a>Todo list</a></li>
+        <li
+          :class="{ 'is-active': tabs==3 }"
+          @click="tabs=3"
+        ><a>Filtrando dropdowns dependentes</a></li>
+        <li
+          :class="{ 'is-active': tabs==4 }"
+          @click="tabs=4"
+        ><a>Form Inline</a></li>
+      </ul>
+    </div>
+    <!-- 1 -->
+    <div x-show="tabs==1">
+      <!-- START columns -->
+      <div class="columns">
+        <!-- 2 columns -->
+        <!-- START column -->
+        <div class="column">
+          <!-- 3 cards -->
+          <!-- ASSUNTO x-data e x-text -->
+          <div
+            class="card"
+            x-data="{
             title: 'Tarefas',
             items: ['Um', 'Dois', 'Três']
           }"
-        >
-          <div class="card-header">
-            <p
-              class="card-header-title"
-              x-text="title"
-            ></p>
+          >
+            <div class="card-header">
+              <p class="card-header-title">x-data, x-text e x-for</p>
+              <p
+                class="card-header-title"
+                x-text="title"
+              ></p>
+            </div>
+            <div class="card-content">
+              <!-- Conteúdo do card -->
+              <ul>
+                <template x-for="item in items">
+                  <li x-text="item"></li>
+                </template>
+              </ul>
+            </div>
           </div>
-          <div class="card-content">
-            <ul>
-              <template x-for="item in items">
-                <li x-text="item"></li>
-              </template>
-            </ul>
-          </div>
-        </div>
-        <!-- END card -->
-        <br>
-        <!-- ASSUNTO x-if e x-show -->
-        <!-- START card -->
-        <div
-          class="card"
-          x-data="{
+          <!-- ASSUNTO x-if e x-show -->
+          <div
+            class="card mt-5"
+            x-data="{
             isActive: true,
             isAdmin: false
           }"
-        >
-          <div class="card-header">
-            <p class="card-header-title">x-if e x-show</p>
+          >
+            <div class="card-header">
+              <p class="card-header-title">x-if e x-show</p>
+            </div>
+            <div class="card-content">
+              <!-- Conteúdo do card -->
+              <template x-if="isAdmin">
+                <button class="button is-warning">Admin</button>
+              </template>
+              <button
+                class="button is-primary"
+                x-show="isActive"
+              >Ativo</button>
+              <button
+                class="button is-danger"
+                x-show="isAdmin"
+              >Admin</button>
+            </div>
           </div>
-          <div class="card-content">
-            <!-- Conteúdo do card -->
-            <template x-if="isAdmin">
-              <button class="button is-warning">Admin</button>
-            </template>
-            <button
-              class="button is-primary"
-              x-show="isActive"
-            >Ativo</button>
-            <button
-              class="button is-danger"
-              x-show="isAdmin"
-            >Admin</button>
-          </div>
-        </div>
-        <!-- END card -->
-        <br>
-        <!-- ASSUNTO x-bind -->
-        <!-- START card -->
-        <div
-          class="card"
-          x-data="{
+          <!-- ASSUNTO x-bind -->
+          <div
+            class="card mt-5"
+            x-data="{
             yes: true,
             items: ['Um', 'Dois', 'Três']
           }"
-        >
-          <div class="card-header">
-            <p class="card-header-title">x-bind</p>
-          </div>
-          <div class="card-content">
-            <!-- Conteúdo do card -->
-            <ul>
-              <template x-for="(item, index) in items">
-                <li
-                  x-text="item"
-                  :class="{ 'has-text-primary': index % 2 === 0, 'has-text-danger': index % 2 }"
-                ></li>
-              </template>
-            </ul>
-            <button
-              class="button"
-              :class="{ 'is-primary': yes, 'is-danger': !yes }"
-              x-text="yes"
-              @click="yes =! yes"
-            >Toggle</button>
-            <span x-show="yes">SIM</span>
-            <span x-show="!yes">NÃO</span>
+          >
+            <div class="card-header">
+              <p class="card-header-title">x-bind</p>
+            </div>
+            <div class="card-content">
+              <!-- Conteúdo do card -->
+              <ul>
+                <template x-for="(item, index) in items">
+                  <li
+                    x-text="item"
+                    :class="{ 'has-text-primary': index % 2 === 0, 'has-text-danger': index % 2 }"
+                  ></li>
+                </template>
+              </ul>
+              <button
+                class="button"
+                :class="{ 'is-primary': yes, 'is-danger': !yes }"
+                x-text="yes"
+                @click="yes =! yes"
+              >Toggle</button>
+              <span x-show="yes">SIM</span>
+              <span x-show="!yes">NÃO</span>
+            </div>
           </div>
         </div>
-        <!-- END card -->
-      </div>
-      <!-- END column -->
-      <!-- START column -->
-      <div class="column">
-        <!-- 2 cards -->
-        <!-- ASSUNTO x-model e x-ref -->
-        <!-- START card -->
-        <div
-          class="card"
-          x-data="{
+        <!-- END column -->
+        <!-- START column -->
+        <div class="column">
+          <!-- ASSUNTO x-model e x-ref -->
+          <div
+            class="card"
+            x-data="{
             form: {
               firstName: '',
               lastName: ''
@@ -161,230 +180,391 @@
             email: '',
             selectedFramework: ''
           }"
-        >
-          <div class="card-header">
-            <p class="card-header-title">x-model e x-ref</p>
-          </div>
-          <div class="card-content">
-            <!-- Conteúdo do card -->
-            <input
-              type="text"
-              class="input"
-              placeholder="Nome"
-              x-model="form.firstName"
-            >
-            <p x-text="form.firstName"></p>
-            <!-- -->
-            <input
-              type="email"
-              class="input"
-              placeholder="E-mail"
-              x-ref="newEmail"
-              @input="email = $refs.newEmail.value"
-            >
-            <p x-text="email"></p>
-            <!-- -->
-            <div class="select">
-              <select
-                x-ref="framework"
-                @input="selectedFramework = $refs.framework.value"
-              >
-                <option value="">-----</option>
-                <option value="1">Alpine.js</option>
-                <option value="2">VueJS</option>
-                <option value="3">ReactJS</option>
-                <option value="4">Remix</option>
-                <option value="5">Astro</option>
-              </select>
+          >
+            <div class="card-header">
+              <p class="card-header-title">x-model e x-ref</p>
             </div>
-            <p x-text="selectedFramework"></p>
-          </div>
-        </div>
-        <!-- END card -->
-        <br>
-        <!-- ASSUNTO Computed -->
-        <!-- START card -->
-        <div
-          class="card"
-          x-data="getName"
-        >
-          <div class="card-header">
-            <p class="card-header-title">Computed</p>
-          </div>
-          <div class="card-content">
-            <!-- Conteúdo do card -->
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                class="input"
-                placeholder="Nome"
-                x-model="name.firstName"
-              >
-            </div>
-            <div class="control">
-              <input
-                class="input"
-                type="text"
-                class="input"
-                placeholder="Sobrenome"
-                x-model="name.lastName"
-              >
-            </div>
-            <p x-text="fullName"></p>
-          </div>
-        </div>
-        <!-- END card -->
-      </div>
-      <!-- END column -->
-      <!-- START column -->
-      <div class="column">
-        <!-- 2 cards -->
-        <!-- ASSUNTO Todo list -->
-        <!-- START card -->
-        <div
-          class="card"
-          x-data="getTodos"
-        >
-          <div class="card-header">
-            <p class="card-header-title">Todo list</p>
-          </div>
-          <div class="card-content">
-            <!-- Conteúdo do card -->
-            <div>
-              <form
-                @submit.prevent="saveData"
-                class="form-inline"
-              >
-                <div class="field is-grouped">
-                  <div class="field">
-                    <div class="control">
-                      <input
-                        class="input"
-                        type="text"
-                        maxlength="20"
-                        class="input"
-                        :class="required ? 'is-danger' : ''"
-                        placeholder="Task"
-                        x-model="task"
-                        autofocus
-                      >
-                    </div>
-                    <p x-text="task"></p>
-                    <p
-                      class="help is-danger"
-                      x-show="required"
-                    >
-                      Please type the task.
-                    </p>
-                    <p
-                      class="help has-text-right"
-                      x-show="task.length"
-                      x-text="task.length"
-                    ></p>
-                  </div>
-                  <p class="control">
-                    <button
-                      class="button is-info ml-3"
-                      type="submit"
-                    >
-                      OK
-                    </button>
-                  </p>
+            <div class="card-content">
+              <!-- Conteúdo do card -->
+              <div class="field is-grouped">
+                <div class="field">
+                  <input
+                    type="text"
+                    class="input"
+                    placeholder="Nome"
+                    x-model="form.firstName"
+                  >
+                  <p
+                    class="help is-success"
+                    x-text="form.firstName"
+                  ></p>
                 </div>
-              </form>
-              <span x-show="isLoading || task.length > 0">
+                <!-- -->
+                <div class="field ml-2">
+                  <input
+                    type="email"
+                    class="input"
+                    placeholder="E-mail"
+                    x-ref="newEmail"
+                    @input="email = $refs.newEmail.value"
+                  >
+                  <p
+                    class="help is-success"
+                    x-text="email"
+                  ></p>
+                </div>
+              </div>
+              <!-- -->
+              <div class="field is-grouped">
+                <div class="select">
+                  <select
+                    x-ref="framework"
+                    @input="selectedFramework = $refs.framework.value"
+                  >
+                    <option value="">-----</option>
+                    <option value="1">Alpine.js</option>
+                    <option value="2">VueJS</option>
+                    <option value="3">ReactJS</option>
+                    <option value="4">Remix</option>
+                    <option value="5">Astro</option>
+                  </select>
+                </div>
+                <p
+                  class="has-text-primary ml-2"
+                  x-text="selectedFramework"
+                ></p>
+              </div>
+            </div>
+          </div>
+          <!-- ASSUNTO Computed -->
+          <div
+            class="card mt-5"
+            x-data="getName"
+          >
+            <div class="card-header">
+              <p class="card-header-title">Computed</p>
+            </div>
+            <div class="card-content">
+              <!-- Conteúdo do card -->
+              <div class="field is-grouped">
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    class="input"
+                    placeholder="Nome"
+                    x-model="name.firstName"
+                  >
+                </div>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    class="input"
+                    placeholder="Sobrenome"
+                    x-model="name.lastName"
+                  >
+                </div>
+              </div>
+              <p
+                class="has-text-primary"
+                x-text="fullName"
+              ></p>
+            </div>
+          </div>
+        </div>
+        <!-- END column -->
+      </div>
+      <!-- END columns -->
+    </div>
+    <!-- 2 -->
+    <div x-show="tabs==2">
+      <!-- START columns -->
+      <div class="columns">
+        <!-- 1 column -->
+        <!-- START column -->
+        <div class="column">
+          <!-- ASSUNTO Todo list -->
+          <div
+            class="card"
+            x-data="getTodos"
+          >
+            <div class="card-header">
+              <p class="card-header-title">Todo list</p>
+            </div>
+            <div class="card-content">
+              <!-- Conteúdo do card -->
+              <div>
+                <form
+                  @submit.prevent="saveData"
+                  class="form-inline"
+                >
+                  <div class="field is-grouped">
+                    <div class="field">
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="text"
+                          maxlength="20"
+                          class="input"
+                          :class="required ? 'is-danger' : ''"
+                          placeholder="Task"
+                          x-model="task"
+                          autofocus
+                        >
+                      </div>
+                      <p x-text="task"></p>
+                      <p
+                        class="help is-danger"
+                        x-show="required"
+                      >
+                        Please type the task.
+                      </p>
+                      <p
+                        class="help has-text-right"
+                        x-show="task.length"
+                        x-text="task.length"
+                      ></p>
+                    </div>
+                    <p class="control">
+                      <button
+                        class="button is-info ml-3"
+                        type="submit"
+                      >
+                        OK
+                      </button>
+                    </p>
+                  </div>
+                </form>
+                <span x-show="isLoading || task.length > 0">
+                  <i class="fa fa-spinner fa-pulse has-text-danger"></i>
+                </span>
+                <table>
+                  <tbody>
+                    <template
+                      x-for="todo in todos"
+                      :key="todo.id"
+                    >
+                      <tr>
+                        <td
+                          :class="todo.done ? 'is-done' : ''"
+                          x-text="todo.task"
+                          @click="toggleDone(todo.id, todo.done ? false : true)"
+                        ></td>
+                        <td>
+                          <i
+                            class="fa fa-times has-text-danger ml-3"
+                            @click="deleteTask(todo.id)"
+                          ></i>
+                        </td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END column -->
+      </div>
+      <!-- END columns -->
+    </div>
+    <!-- 3 -->
+    <div x-show="tabs==3">
+      <!-- START columns -->
+      <div class="columns">
+        <!-- 1 column -->
+        <!-- START column -->
+        <div class="column">
+          <!-- ASSUNTO Filtrando dropdowns dependentes -->
+          <div
+            class="card"
+            x-data="getStates"
+          >
+            <div class="card-header">
+              <p class="card-header-title">Filtrando dropdowns dependentes</p>
+            </div>
+            <div
+              class="card-content"
+              style="height: 14rem"
+            >
+              <!-- Conteúdo do card -->
+              <span x-show="isLoading">
                 <i class="fa fa-spinner fa-pulse has-text-danger"></i>
               </span>
-              <table>
-                <tbody>
-                  <template
-                    x-for="todo in todos"
-                    :key="todo.id"
-                  >
-                    <tr>
-                      <td
-                        :class="todo.done ? 'is-done' : ''"
-                        x-text="todo.task"
-                        @click="toggleDone(todo.id, todo.done ? false : true)"
-                      ></td>
-                      <td>
-                        <i
-                          class="fa fa-times has-text-danger ml-3"
-                          @click="deleteTask(todo.id)"
-                        ></i>
-                      </td>
-                    </tr>
-                  </template>
-                </tbody>
-              </table>
+              <div class="field is-grouped">
+                <!-- START field -->
+                <div class="field">
+                  <label class="label">Região</label>
+                  <div class="control">
+                    <div class="select">
+                      <select x-model="selectedRegion">
+                        <option value="">Selecione uma região</option>
+                        <template
+                          x-for="region in regions"
+                          :key="region.id"
+                        >
+                          <option
+                            :value="region.id"
+                            x-text="region.name"
+                          ></option>
+                        </template>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- END field -->
+                <!-- START field -->
+                <div class="field ml-2">
+                  <label class="label">Estado</label>
+                  <div class="control">
+                    <div class="select">
+                      <select multiple>
+                        <option value="">Selecione um Estado</option>
+                        <template
+                          x-for="state in filteredStates"
+                          :key="state.id"
+                        >
+                          <option
+                            :value="state.id"
+                            x-text="state.name"
+                          ></option>
+                        </template>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- END field -->
+              </div>
             </div>
           </div>
         </div>
-        <!-- END card -->
-        <br>
-        <!-- ASSUNTO Filtrando dropdowns dependentes -->
-        <!-- START card -->
-        <div
-          class="card"
-          x-data="getStates"
-        >
-          <div class="card-header">
-            <p class="card-header-title">Filtrando dropdowns dependentes</p>
-          </div>
-          <div class="card-content">
-            <span x-show="isLoading">
-              <i class="fa fa-spinner fa-pulse has-text-danger"></i>
-            </span>
-            <div class="field is-grouped">
-              <!-- START field -->
-              <div class="field">
-                <label class="label">Região</label>
-                <div class="control">
-                  <div class="select">
-                    <select x-model="selectedRegion">
-                      <option value="">Selecione uma região</option>
-                      <template
-                        x-for="region in regions"
-                        :key="region.id"
-                      >
-                        <option
-                          :value="region.id"
-                          x-text="region.name"
-                        ></option>
-                      </template>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <!-- END field -->
-              <!-- START field -->
-              <div class="field ml-2">
-                <label class="label">Estado</label>
-                <div class="control">
-                  <div class="select">
-                    <select>
-                      <option value="">Selecione um Estado</option>
-                      <template
-                        x-for="state in filteredStates"
-                        :key="state.id"
-                      >
-                        <option
-                          :value="state.id"
-                          x-text="state.name"
-                        ></option>
-                      </template>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <!-- END field -->
-            </div>
-          </div>
-        </div>
-        <!-- END card -->
+        <!-- END column -->
       </div>
-      <!-- END column -->
+      <!-- END columns -->
+    </div>
+    <!-- 4 -->
+    <div x-show="tabs==4">
+      <!-- START columns -->
+      <div class="columns">
+        <!-- 1 column -->
+        <!-- START column -->
+        <div class="column">
+          <!-- ASSUNTO Form Inline -->
+          <div
+            class="card"
+            x-data="getSales"
+          >
+            <div class="card-header">
+              <p class="card-header-title">Form Inline</p>
+            </div>
+            <form
+              @submit.prevent="saveData"
+              class="form-inline"
+            >
+              <!-- START card-content -->
+              <div class="card-content">
+                <!-- Conteúdo do card -->
+                <table class="table is-fullwidth is-hoverable">
+                  <thead>
+                    <tr>
+                      <th>Produto</th>
+                      <th>Quantidade</th>
+                      <th>Preço</th>
+                      <th colspan="2">Subtotal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <template x-for="(sale, index) in sales">
+                      <tr>
+                        <td>
+                          <div class="control">
+                            <div class="select">
+                              <select
+                                :id="'id_items-'+index+'-product'"
+                                x-model.lazy="sale.product"
+                                @change="findProduct(sale.product, index)"
+                              >
+                                <option value="">-------</option>
+                                <template
+                                  x-for="product in products"
+                                  :key="product.id"
+                                >
+                                  <option
+                                    :value="product.id"
+                                    x-text="product.title"
+                                    :selected="product.id === sale.product"
+                                  ></option>
+                                </template>
+                              </select>
+                            </div>
+                          </div>
+                        </td>
+                        <td x-id="['quantity']">
+                          <input
+                            :id="'id_items-'+index+'-quantity'"
+                            class="input"
+                            type="number"
+                            step="0"
+                            placeholder="Quantidade"
+                            x-model="sale.quantity"
+                          >
+                        </td>
+                        <td x-id="['price']">
+                          <input
+                            :id="'id_items-'+index+'-price'"
+                            class="input"
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            placeholder="Preço"
+                            x-model="sale.price"
+                          >
+                        </td>
+                        <td>
+                          <i
+                            class="fa fa-times has-text-danger"
+                            @click="deleteSale(sale.id)"
+                          ></i>
+                        </td>
+                        <td
+                          class="has-text-right"
+                          x-text="(sale.quantity * sale.price).toFixed(2)"
+                        ></td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </div>
+              <!-- END card-content -->
+              <div class="columns m-3">
+                <div class="column">
+                  <button
+                    class="button is-primary"
+                    type="button"
+                    @click="addRow"
+                  >Adicionar</button>
+                  <button
+                    class="button is-info ml-3"
+                    type="submit"
+                  >Salvar</button>
+                </div>
+                <div class="column px-3">
+                  <div class="is-pulled-right ">
+                    <span class="title has-text-weight-bold mr-3">TOTAL</span>
+                    <span
+                      class="title has-text-weight-bold"
+                      x-text="total"
+                    ></span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- END column -->
+      </div>
+      <!-- END columns -->
     </div>
   </div>
   <script src="/assets/js/main.js"></script>

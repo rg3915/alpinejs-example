@@ -1,0 +1,112 @@
+<!-- passo 2 -->
+<body>
+  <div
+    class="container"
+    x-data="{ tabs: 1 }"
+  >
+    <!-- img -->
+    <img src="https://camo.githubusercontent.com/fdb582cadc3af8a37688d04f78a8c5876cb9142aac7c0bfc43ad1a018963a76e/68747470733a2f2f616c70696e656a732e6465762f616c70696e655f6c6f6e672e737667">
+    <!-- notification -->
+    <div class="notification is-primary">
+      <p>Exemplos do <a
+          href="https://alpinejs.dev/"
+          target="_blank"
+        >Alpine.js</a></p>
+      <p>O Alpine.js basicamente trabalha com atributos, e ele tem 15 atributos.</p>
+    </div>
+    <!-- tabs -->
+    <div class="tabs">
+      <p x-text="tabs"></p>
+      <ul>
+        <li
+          :class="{ 'is-active': tabs==1 }"
+          @click="tabs=1"
+        ><a>Alpine.js</a></li>
+        <li
+          :class="{ 'is-active': tabs==2 }"
+          @click="tabs=2"
+        ><a>Todo list</a></li>
+        <li
+          :class="{ 'is-active': tabs==3 }"
+          @click="tabs=3"
+        ><a>Filtrando dropdowns dependentes</a></li>
+        <li
+          :class="{ 'is-active': tabs==4 }"
+          @click="tabs=4"
+        ><a>Form Inline</a></li>
+      </ul>
+    </div>
+    <!-- 1 -->
+    <div x-show="tabs==1">
+      <!-- START columns -->
+      <div class="columns">
+        <!-- 2 columns -->
+        <!-- START column -->
+        <div class="column">
+          <!-- 3 cards -->
+          <!-- ASSUNTO x-data, x-text e x-for -->
+          <p>ASSUNTO x-data, x-text e x-for</p>
+          <!-- ASSUNTO x-if e x-show -->
+          <p>ASSUNTO x-if e x-show</p>
+          <!-- ASSUNTO x-bind -->
+          <p>ASSUNTO x-bind</p>
+        </div>
+        <!-- END column -->
+        <!-- START column -->
+        <div class="column">
+          <!-- ASSUNTO x-model e x-ref -->
+          <p>ASSUNTO x-model e x-ref</p>
+          <!-- ASSUNTO Computed -->
+          <p>ASSUNTO Computed</p>
+        </div>
+        <!-- END column -->
+      </div>
+      <!-- END columns -->
+    </div>
+    <!-- 2 -->
+    <div x-show="tabs==2">
+      <!-- START columns -->
+      <div class="columns">
+        <!-- 1 column -->
+        <!-- START column -->
+        <div class="column">
+          <!-- ASSUNTO Todo list -->
+          <p>ASSUNTO Todo list</p>
+        </div>
+        <!-- END column -->
+      </div>
+      <!-- END columns -->
+    </div>
+    <!-- 3 -->
+    <div x-show="tabs==3">
+      <!-- START columns -->
+      <div class="columns">
+        <!-- 1 column -->
+        <!-- START column -->
+        <div class="column">
+          <!-- ASSUNTO Filtrando dropdowns dependentes -->
+          <p>ASSUNTO Filtrando dropdowns dependentes</p>
+        </div>
+        <!-- END column -->
+      </div>
+      <!-- END columns -->
+    </div>
+    <!-- 4 -->
+    <div x-show="tabs==4">
+      <!-- START columns -->
+      <div class="columns">
+        <!-- 1 column -->
+        <!-- START column -->
+        <div class="column">
+          <!-- ASSUNTO Form Inline -->
+          <p>ASSUNTO Form Inline</p>
+        </div>
+        <!-- END column -->
+      </div>
+      <!-- END columns -->
+    </div>
+  </div>
+  <script src="/assets/js/main.js"></script>
+</body>
+
+</html>
