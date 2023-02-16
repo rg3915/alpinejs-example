@@ -3,6 +3,7 @@ const getName = () => ({
     firstName: '',
     lastName: '',
   },
+  // computed
   fullName: function() { return `${this.name.firstName} ${this.name.lastName}` },
 })
 
@@ -16,6 +17,7 @@ const getTodos = () => ({
   init() {
     this.getData()
 
+    // watch
     this.$watch('task', (newValue, oldValue) => {
       console.log(newValue, oldValue)
       if (newValue.length > 0) {
@@ -27,6 +29,8 @@ const getTodos = () => ({
 
   getData() {
     this.isLoading = true
+
+    // Pega os dados no backend com fetch.
     fetch(this.url)
       .then(response => response.json())
       .then(data => {
@@ -36,10 +40,12 @@ const getTodos = () => ({
   },
 
   saveData() {
+    // Verifica se task foi preenchido.
     if (!this.task) {
       this.required = true
       return
     }
+    // Salva os dados no backend.
     fetch(this.url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -54,6 +60,7 @@ const getTodos = () => ({
       })
   },
 
+  // Marca a tarefa como feita ou não.
   toggleDone(id, value) {
     fetch(`${this.url}/${id}`, {
         method: 'PATCH',
@@ -90,6 +97,7 @@ const getStates = () => ({
   init() {
     this.getData()
 
+    // watch
     // com @input no select de region não deu certo.
     this.$watch('selectedRegion', (newValue, oldValue) => {
       // Filtra o array 'states' pelo ID da região selecionada e define a propriedade 'filteredStates'
@@ -100,6 +108,8 @@ const getStates = () => ({
 
   getData() {
     this.isLoading = true
+
+    // Pega os dados no backend com fetch.
     fetch(this.url)
       .then(response => response.json())
       .then(data => {
@@ -139,13 +149,25 @@ const getSales = () => ({
   getData() {
     this.isLoading = true
 
+    // Pega os dados das vendas.
     fetch(this.urlSale)
       .then(response => response.json())
       .then(data => {
         this.sales = data
         this.isLoading = false
+
+        // Se estiver vazio insere uma linha vazia.
+        if (this.sales.length === 0) {
+          this.sales = [{
+            "product": "",
+            "quantity": null,
+            "price": null
+          }]
+        }
+
       })
 
+    // Pega os dados dos produtos.
     fetch(this.urlProduct)
       .then(response => response.json())
       .then(data => {

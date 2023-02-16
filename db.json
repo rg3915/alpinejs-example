@@ -11,11 +11,6 @@
     {
       "task": "Three",
       "id": 3
-    },
-    {
-      "task": "Four",
-      "id": 4,
-      "done": true
     }
   ],
   "products": [
@@ -46,29 +41,5 @@
     }
   ],
   "sales": [
-    {
-      "product": 4,
-      "quantity": 2,
-      "price": 7,
-      "id": 96
-    },
-    {
-      "product": 1,
-      "quantity": 3,
-      "price": 6.35,
-      "id": 97
-    },
-    {
-      "product": 2,
-      "quantity": 3,
-      "price": 8.99,
-      "id": 98
-    },
-    {
-      "product": 3,
-      "quantity": 2,
-      "price": 5,
-      "id": 99
-    }
   ]
 }
