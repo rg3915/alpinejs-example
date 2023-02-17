@@ -21,17 +21,46 @@ Create a `db.json`
 {
   "todos": [
     {
-      "id": 1,
-      "task": "One"
+      "task": "One",
+      "id": 1
     },
     {
-      "id": 2,
-      "task": "Two"
+      "task": "Two",
+      "id": 2
     },
     {
-      "id": 3,
-      "task": "Three"
+      "task": "Three",
+      "id": 3
     }
+  ],
+  "products": [
+    {
+      "title": "Refrigerante",
+      "price": 6.35,
+      "id": 1
+    },
+    {
+      "title": "Suco de laranja",
+      "price": 8.99,
+      "id": 2
+    },
+    {
+      "title": "Caldo de cana",
+      "price": 5,
+      "id": 3
+    },
+    {
+      "title": "Pastel",
+      "price": 7,
+      "id": 4
+    },
+    {
+      "title": "Coxinha",
+      "price": 5.5,
+      "id": 5
+    }
+  ],
+  "sales": [
   ]
 }
 ```
