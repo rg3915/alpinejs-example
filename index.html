@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport"content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <link rel="shortcut icon" href="https://alpinejs.dev/favicon.png">
   <title>Alpine JS</title>
   <!-- Bulma -->
@@ -66,7 +66,7 @@
         <!-- START column -->
         <div class="column">
           <!-- 3 cards -->
-          <!-- ASSUNTO x-data e x-text -->
+          <!-- ASSUNTO x-data, x-text e x-for -->
           <div
             class="card"
             x-data="{
@@ -181,8 +181,21 @@
                     x-text="form.firstName"
                   ></p>
                 </div>
-                <!-- -->
+                <!-- . -->
                 <div class="field ml-2">
+                  <input
+                    type="text"
+                    class="input"
+                    placeholder="Sobrenome"
+                    x-model="form.lastName"
+                  >
+                  <p
+                    class="help is-success"
+                    x-text="form.lastName"
+                  ></p>
+                </div>
+                <!-- . -->
+                <div class="field">
                   <input
                     type="email"
                     class="input"
@@ -196,7 +209,7 @@
                   ></p>
                 </div>
               </div>
-              <!-- -->
+              <!-- . -->
               <div class="field is-grouped">
                 <div class="select">
                   <select
@@ -233,7 +246,6 @@
                   <input
                     class="input"
                     type="text"
-                    class="input"
                     placeholder="Nome"
                     x-model="name.firstName"
                   >
@@ -242,7 +254,6 @@
                   <input
                     class="input"
                     type="text"
-                    class="input"
                     placeholder="Sobrenome"
                     x-model="name.lastName"
                   >
@@ -277,6 +288,7 @@
             <div class="card-content">
               <!-- Conteúdo do card -->
               <div>
+                <!-- START form -->
                 <form
                   @submit.prevent="saveData"
                   class="form-inline"
@@ -285,7 +297,6 @@
                     <div class="field">
                       <div class="control">
                         <input
-                          class="input"
                           type="text"
                           maxlength="20"
                           class="input"
@@ -312,13 +323,12 @@
                       <button
                         class="button is-info ml-3"
                         type="submit"
-                      >
-                        OK
-                      </button>
+                      >OK</button>
                     </p>
                   </div>
                 </form>
-                <span x-show="isLoading || task.length > 0">
+                <!-- END form -->
+                <span x-show="isLoading">
                   <i class="fa fa-spinner fa-pulse has-text-danger"></i>
                 </span>
                 <table>
@@ -381,7 +391,7 @@
                   <div class="control">
                     <div class="select">
                       <select x-model="selectedRegion">
-                        <option value="">Selecione uma região</option>
+                        <option value="">Selecione uma Região</option>
                         <template
                           x-for="region in regions"
                           :key="region.id"
@@ -482,7 +492,7 @@
                             </div>
                           </div>
                         </td>
-                        <td x-id="['quantity']">
+                        <td>
                           <input
                             :id="'id_items-'+index+'-quantity'"
                             class="input"
@@ -492,7 +502,7 @@
                             x-model="sale.quantity"
                           >
                         </td>
-                        <td x-id="['price']">
+                        <td>
                           <input
                             :id="'id_items-'+index+'-price'"
                             class="input"
@@ -532,7 +542,7 @@
                   >Salvar</button>
                 </div>
                 <div class="column px-3">
-                  <div class="is-pulled-right ">
+                  <div class="is-pulled-right">
                     <span class="title has-text-weight-bold mr-3">TOTAL</span>
                     <span
                       class="title has-text-weight-bold"

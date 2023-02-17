@@ -4,7 +4,7 @@ const getName = () => ({
     lastName: '',
   },
   // computed
-  fullName: function() { return `${this.name.firstName} ${this.name.lastName}` },
+  fullName: function() { return `${this.name.firstName} ${this.name.lastName}` }
 })
 
 const getTodos = () => ({
@@ -24,7 +24,6 @@ const getTodos = () => ({
         this.required = false
       }
     })
-
   },
 
   getData() {
@@ -83,7 +82,7 @@ const getTodos = () => ({
       .then(() => {
         this.getData()
       })
-  },
+  }
 })
 
 const getStates = () => ({
@@ -98,12 +97,12 @@ const getStates = () => ({
     this.getData()
 
     // watch
-    // com @input no select de region não deu certo.
+    // com @input no select de region não dá certo.
     this.$watch('selectedRegion', (newValue, oldValue) => {
-      // Filtra o array 'states' pelo ID da região selecionada e define a propriedade 'filteredStates'
+      console.log(newValue, oldValue)
+      // Filtra o array 'states' pelo ID da região selecionada e define a propriedade 'filteredStates'.
       this.filteredStates = this.states.filter(state => state.region.id == newValue)
     })
-
   },
 
   getData() {
@@ -132,7 +131,7 @@ const getStates = () => ({
         this.filteredStates = states
         this.isLoading = false
       })
-  },
+  }
 })
 
 const getSales = () => ({
@@ -154,14 +153,13 @@ const getSales = () => ({
       .then(response => response.json())
       .then(data => {
         this.sales = data
-        this.isLoading = false
 
         // Se estiver vazio insere uma linha vazia.
         if (this.sales.length === 0) {
           this.sales = [{
-            "product": "",
-            "quantity": null,
-            "price": null
+            'product': '',
+            'quantity': null,
+            'price': null
           }]
         }
 
@@ -178,9 +176,9 @@ const getSales = () => ({
 
   addRow() {
     this.sales.push({
-      "product": "",
-      "quantity": null,
-      "price": null
+      'product': '',
+      'quantity': null,
+      'price': null
     })
   },
 
@@ -188,9 +186,7 @@ const getSales = () => ({
     const item = this.products.find((item) => {
       return item.id == product
     })
-    if (item) {
-      this.sales[index].price = item.price
-    }
+    if (item) this.sales[index].price = item.price
   },
 
   async saveData() {
@@ -209,7 +205,7 @@ const getSales = () => ({
         body: JSON.stringify({
           product: parseInt(item.product),
           quantity: parseInt(item.quantity),
-          price: parseFloat(item.price)
+          price: parseFloat(item.price),
         })
       })
       const data = await response.json()
@@ -230,5 +226,4 @@ const getSales = () => ({
       return acc + (sale.quantity * sale.price)
     }, 0).toFixed(2)
   }
-
 })
