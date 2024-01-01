@@ -28,7 +28,7 @@
     x-data="{ tabs: 1 }"
   >
     <!-- img -->
-    <img src="https://camo.githubusercontent.com/fdb582cadc3af8a37688d04f78a8c5876cb9142aac7c0bfc43ad1a018963a76e/68747470733a2f2f616c70696e656a732e6465762f616c70696e655f6c6f6e672e737667">
+    <img src="https://alpinejs.dev/alpine_long.svg">
     <!-- notification -->
     <div class="notification is-primary">
       <p>Exemplos do <a
@@ -485,7 +485,7 @@
                                   <option
                                     :value="product.id"
                                     x-text="product.title"
-                                    :selected="product.id === sale.product"
+                                    :selected="product.id == sale.product"
                                   ></option>
                                 </template>
                               </select>

@@ -1,16 +1,36 @@
 {
   "todos": [
     {
-      "task": "One",
-      "id": 1
+      "task": "um",
+      "id": 4
     },
     {
-      "task": "Two",
-      "id": 2
+      "task": "um",
+      "id": 5
     },
     {
-      "task": "Three",
-      "id": 3
+      "task": "dois",
+      "id": 6
+    },
+    {
+      "task": "tres",
+      "id": 7
+    },
+    {
+      "task": "Refa  ",
+      "id": 8
+    },
+    {
+      "task": "teste",
+      "id": 9
+    },
+    {
+      "task": "ok",
+      "id": 10
+    },
+    {
+      "task": "o;lhkj",
+      "id": 11
     }
   ],
   "products": [
@@ -41,5 +61,17 @@
     }
   ],
   "sales": [
+    {
+      "product": 2,
+      "quantity": 3,
+      "price": 8.99,
+      "id": 11
+    },
+    {
+      "product": 3,
+      "quantity": 4,
+      "price": 5,
+      "id": 12
+    }
   ]
 }
