@@ -184,7 +184,7 @@ const getSales = () => ({
 
   findProduct(product, index) {
     const item = this.products.find(item => {
-      return item.id == product
+      return item.id === parseInt(product)
     })
     if (item) this.sales[index].price = item.price
   },
